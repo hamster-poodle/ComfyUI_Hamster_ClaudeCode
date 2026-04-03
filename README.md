@@ -1,7 +1,9 @@
 # 🐹 Hamster Claude Code
 
 A ComfyUI custom node that runs **Claude Code CLI** directly inside your workflow.
+
 If you can run Claude Code in your terminal, you can use it in ComfyUI right away.
+
 Supports both **local** and **server** environments.
 
 ---
