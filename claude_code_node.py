@@ -17,14 +17,14 @@ class ClaudeCodeNode:
             "required": {
                 "prompt": ("STRING", {
                     "multiline": True,
-                    "default": "以下のファイルを処理してください。",
-                    "tooltip": "Claudeへの指示（プロンプト）"
+                    "default": "Please process the following file.",
+                    "tooltip": "Instructions for Claude"
                 }),
             },
             "optional": {
                 "file_path": ("STRING", {
                     "default": "",
-                    "tooltip": "処理対象のtxtファイルのパス（例: C:/Users/paras/Documents/sample.txt）"
+                    "tooltip": "Path to the target file (e.g. C:/Users/paras/Documents/sample.txt)"
                 }),
                 "api_key_if_server": ("STRING", {
                     "default": "",
@@ -33,15 +33,15 @@ class ClaudeCodeNode:
                 }),
                 "model": (["default", "claude-opus-4-6", "claude-sonnet-4-6", "claude-haiku-4-5-20251001"], {
                     "default": "default",
-                    "tooltip": "使用するモデル（defaultはCLIのデフォルト設定）"
+                    "tooltip": "Model to use (default uses the CLI setting)"
                 }),
                 "continue_session": ("BOOLEAN", {
                     "default": False,
-                    "tooltip": "直前のセッションを継続してコンテキストを保持する"
+                    "tooltip": "Continue from the previous session to retain context"
                 }),
                 "working_directory": ("STRING", {
                     "default": "",
-                    "tooltip": "作業ディレクトリ（空の場合はfile_pathのディレクトリ、またはホームディレクトリ）"
+                    "tooltip": "Working directory (defaults to file_path's directory, or home directory if empty)"
                 }),
             }
         }
@@ -53,19 +53,18 @@ class ClaudeCodeNode:
     OUTPUT_NODE = False
 
     def run(self, prompt, file_path="", api_key_if_server="", model="default", continue_session=False, working_directory=""):
-        # ファイルパスが指定されている場合はプロンプトに付加
         fp = file_path.strip()
         if fp:
             if not os.path.isfile(fp):
                 return (
-                    f"[ERROR] ファイルが見つかりません: {fp}",
+                    f"[ERROR] File not found: {fp}",
                     "status: error"
                 )
-            full_prompt = f"{prompt}\n\nファイル: {fp}"
+            full_prompt = f"{prompt}\n\nFile: {fp}"
         else:
             full_prompt = prompt
 
-        # 作業ディレクトリの決定
+        # working directory
         if working_directory.strip():
             cwd = working_directory.strip()
         elif fp:
@@ -73,14 +72,14 @@ class ClaudeCodeNode:
         else:
             cwd = os.path.expanduser("~")
 
-        # コマンド構築
+        # build command
         cmd = ["claude", "-p", full_prompt, "--output-format", "json"]
         if model != "default":
             cmd.extend(["--model", model])
         if continue_session:
             cmd.append("--continue")
 
-        # 環境変数の構築
+        # environment variables
         env = os.environ.copy()
         if api_key_if_server.strip():
             env["ANTHROPIC_API_KEY"] = api_key_if_server.strip()
@@ -135,7 +134,7 @@ class ClaudeCodeNode:
                     metadata = f"wall_time: {wall_elapsed:.2f}s\nstatus: ok (JSON parse failed)"
 
         except FileNotFoundError:
-            output = "[ERROR] `claude` コマンドが見つかりません。PATHを確認してください。"
+            output = "[ERROR] `claude` command not found. Please check your PATH."
             metadata = f"wall_time: {time.time() - wall_start:.2f}s\nstatus: error"
         except Exception as e:
             output = f"[ERROR] {e}"
