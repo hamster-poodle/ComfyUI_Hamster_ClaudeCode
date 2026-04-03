@@ -45,7 +45,7 @@ Execute Claude Code CLI from within a ComfyUI node. Pass a prompt and an optiona
 Open your terminal in `ComfyUI/custom_nodes/` and run:
 
 ```bash
-git clone https://github.com/hamster-poodle/ComfyUI-ClaudeCode
+git clone https://github.com/hamster-poodle/ComfyUI_Hamster_ClaudeCode
 ```
 
 Then restart **ComfyUI**.
