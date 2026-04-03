@@ -24,7 +24,7 @@ class ClaudeCodeNode:
             "optional": {
                 "file_path": ("STRING", {
                     "default": "",
-                    "tooltip": "Path to the target file (e.g. C:/Users/paras/Documents/sample.txt)"
+                    "tooltip": "Path to the target file (e.g. C:/Users/paras/Documents/sample.txt, .py, .md, etc.)"
                 }),
                 "api_key_if_server": ("STRING", {
                     "default": "",

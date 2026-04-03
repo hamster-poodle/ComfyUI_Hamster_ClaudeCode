@@ -17,7 +17,7 @@ Execute Claude Code CLI from within a ComfyUI node. Pass a prompt and an optiona
 | Input | Type | Required | Description |
 |---|---|---|---|
 | `prompt` | STRING | ✅ | Instructions for Claude |
-| `file_path` | STRING | optional | Path to a local `.txt` file to process |
+| `file_path` | STRING | optional | Path to a local file to process (`.txt`, `.py`, `.md`, etc.) |
 | `api_key_if_server` | STRING | optional | `ANTHROPIC_API_KEY` for server use (leave empty for local) |
 | `model` | dropdown | optional | Model to use (default uses CLI setting) |
 | `continue_session` | BOOLEAN | optional | Continue from the previous session |
@@ -34,7 +34,7 @@ Execute Claude Code CLI from within a ComfyUI node. Pass a prompt and an optiona
 
 - **Local use**: Run `claude login` once — no API key needed in the node.
 - **Server use**: Enter your `ANTHROPIC_API_KEY` in the `api_key_if_server` field, or set it as a system environment variable.
-- `file_path` is read directly by Claude CLI — no file size bottleneck on the ComfyUI side. Supports files up to ~200,000 tokens.
+- `file_path` accepts any file type (`.txt`, `.py`, `.md`, etc.) — read directly by Claude CLI with no file size bottleneck on the ComfyUI side. Supports files up to ~200,000 tokens.
 
 ---
 
