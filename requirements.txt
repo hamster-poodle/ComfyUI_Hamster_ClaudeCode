@@ -1,0 +1,2 @@
+# No additional dependencies required.
+# Requires Claude Code CLI: npm install -g @anthropic-ai/claude-code
