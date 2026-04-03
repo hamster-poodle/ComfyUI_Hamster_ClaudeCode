@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(wsl which:*)",
+      "Bash(wsl find:*)",
+      "Bash(wsl bash:*)",
+      "Bash(wsl:*)"
+    ]
+  }
+}
